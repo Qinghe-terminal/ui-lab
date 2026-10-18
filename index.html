@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UI Lab - 设计实验室</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* 测试字体 */
+        body {
+            font-family: "SimSun", "宋体", "Songti SC", serif;
+        }
+        
+        /* 测试字体缩放：最小16px，根据屏幕宽度1.5%放大，最大22px */
+        html {
+            font-size: clamp(16px, 1.5vw, 22px);
+        }
+
+        /* 测试防复制 */
+        .no-copy {
+            user-select: none;
+            -webkit-user-select: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 p-8">
+    
+    <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg">
+        <h1 class="text-3xl font-bold text-blue-600 mb-6">UI 实验室</h1>
+        
+        <h2 class="text-xl font-bold text-gray-700 mb-4 border-l-4 border-blue-500 pl-3">1. 字体缩放与行宽测试</h2>
+        <p class="leading-relaxed max-w-[75ch] mb-4">
+            这段文字用来测试你的屏幕上的阅读体验。你可以尝试调整浏览器窗口的大小，字体大小会自动缩放。同时，这段文字的最大宽度被限制在了 75 个字符左右，以保证阅读时视线不会太长。
+        </p>
+
+        <h2 class="text-xl font-bold text-gray-700 mb-4 mt-8 border-l-4 border-blue-500 pl-3">2. 防复制测试</h2>
+        <p class="no-copy mb-4 bg-gray-100 p-4 rounded border border-gray-200">
+            尝试用鼠标选中这段文字，将无法选中。
+        </p>
+
+        <h2 class="text-xl font-bold text-gray-700 mb-4 mt-8 border-l-4 border-blue-500 pl-3">3. 代码块与复制按钮测试</h2>
+        <div class="relative mb-8">
+            <code class="block bg-blue-50 text-blue-800 p-4 rounded-lg pr-16 text-sm overflow-x-auto shadow-sm border border-blue-100">C:\Users\你的用户名\Downloads</code>
+            <!-- 这是一个静态的复制按钮样式，后面用 JS 实现功能 -->
+            <button class="absolute top-2 right-2 bg-white text-blue-600 border border-blue-200 px-3 py-1 rounded text-xs font-semibold hover:bg-blue-50 transition shadow-sm">
+                复制
+            </button>
+        </div>
+    </div>
+
+</body>
+</html>
