@@ -39,14 +39,38 @@
         </p>
 
         <h2 class="text-xl font-bold text-gray-700 mb-4 mt-8 border-l-4 border-blue-500 pl-3">3. 代码块与复制按钮测试</h2>
+        
+        <!-- 路径代码块与按钮 -->
         <div class="relative mb-8">
-            <code class="block bg-blue-50 text-blue-800 p-4 rounded-lg pr-16 text-sm overflow-x-auto shadow-sm border border-blue-100">C:\Users\你的用户名\Downloads</code>
-            <!-- 这是一个静态的复制按钮样式，后面用 JS 实现功能 -->
-            <button class="absolute top-2 right-2 bg-white text-blue-600 border border-blue-200 px-3 py-1 rounded text-xs font-semibold hover:bg-blue-50 transition shadow-sm">
+            <code id="path-code-1" class="block bg-blue-50 text-blue-800 p-4 rounded-lg pr-20 text-sm overflow-x-auto shadow-sm border border-blue-100">C:\Users\你的用户名\Downloads</code>
+            <button onclick="copyCode('path-code-1', this)" class="absolute top-2 right-2 bg-white text-blue-600 border border-blue-200 px-3 py-1 rounded text-xs font-semibold hover:bg-blue-50 transition shadow-sm">
                 复制
             </button>
         </div>
-    </div>
 
-</body>
-</html>
+        <!-- 这里是实现复制功能的 JavaScript 代码 -->
+        <script>
+            function copyCode(elementId, btnElement) {
+                // 1. 找到对应的代码框内容
+                const textToCopy = document.getElementById(elementId).innerText;
+                
+                // 2. 使用浏览器接口把内容写入剪贴板
+                navigator.clipboard.writeText(textToCopy).then(() => {
+                    // 3. 复制成功后，改变按钮的样式和文字，给用户反馈
+                    const originalText = btnElement.innerText;
+                    btnElement.innerText = '已复制！';
+                    btnElement.classList.add('bg-green-50', 'text-green-600', 'border-green-200');
+                    btnElement.classList.remove('text-blue-600', 'border-blue-200');
+                    
+                    // 4. 2秒后恢复按钮原来的样子
+                    setTimeout(() => {
+                        btnElement.innerText = originalText;
+                        btnElement.classList.remove('bg-green-50', 'text-green-600', 'border-green-200');
+                        btnElement.classList.add('text-blue-600', 'border-blue-200');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                    alert('复制失败，请手动选择复制。');
+                });
+            }
+        </script>
