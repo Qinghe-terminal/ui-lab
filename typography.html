@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>字体层级规范 - UI Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+    <style>
+        body { font-family: "SimSun", "宋体", "Songti SC", serif; }
+        html { font-size: clamp(16px, 1.5vw, 18px); }
+
+        :root {
+            --bg-page: #f4f6f8;
+            --bg-card: #ffffff;
+            --text-main: #1f2937;
+            --text-sub: #6b7280;
+            --color-primary: #405de6;
+        }
+        
+        html.dark {
+            --bg-page: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f1f5f9;
+            --text-sub: #94a3b8;
+            --color-primary: #5851db;
+        }
+
+        body {
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .custom-card {
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .text-sub { color: var(--text-sub); }
+        .text-primary { color: var(--color-primary); }
+
+        /* 重点：深色模式下给主色文字添加轻微荧光效果 */
+        html.dark .text-primary {
+            text-shadow: 0 0 10px rgba(88, 81, 219, 0.6);
+        }
+        html.dark .text-blue-700 {
+            text-shadow: 0 0 8px rgba(96, 165, 250, 0.4);
+        }
+    </style>
+</head>
+<body class="p-8">
+
+    <!-- 全局导航栏 -->
+    <nav class="custom-card shadow-sm sticky top-0 z-50 mb-8 -mx-8 -mt-8 border-b border-gray-200 dark:border-gray-700">
+        <div class="max-w-4xl mx-auto px-4 h-16 flex items-center justify-between">
+            <span class="font-bold text-primary">UI Lab 实验室</span>
+            <div class="space-x-4 flex items-center">
+                <a href="index.html" class="text-sub hover:text-primary transition">目录</a>
+                <a href="color.html" class="text-sub hover:text-primary transition">配色规范</a>
+                <a href="typography.html" class="text-primary font-bold border-b-2 border-current pb-1">字体规范</a>
+                <a href="whitepaper.html" class="text-sub hover:text-primary transition">功能白皮书</a>
+                
+                <!-- 动态切换按钮 -->
+                <button id="theme-toggle" class="ml-4 px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded text-sm hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+                    深色模式
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 页面容器 -->
+    <div class="max-w-4xl mx-auto custom-card p-8 rounded-xl shadow-lg mb-10">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight text-primary">字体层级规范</h1>
+        <p class="text-sub mb-10 pb-6 border-b border-gray-200 dark:border-gray-700">全站采用“宋体”作为主字体，通过字号、粗细与行高构建清晰的文档阅读体验。</p>
+        
+        <!-- 1. 标题层级 -->
+        <section class="mb-12">
+            <h2 class="text-2xl md:text-3xl font-bold text-primary mb-6">1. 标题层级 (Headings)</h2>
+            
+            <div class="space-y-8">
+                <div>
+                    <span class="text-xs font-mono text-sub bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">H1 / 文章大标题</span>
+                    <h1 class="text-4xl font-bold mt-2 mb-2">01 下载、群文件与网盘</h1>
+                    <p class="text-sm text-sub">字号: 2.25rem (36px), 字重: Bold (粗体)</p>
+                </div>
+
+                <div>
+                    <span class="text-xs font-mono text-sub bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">H2 / 章节标题</span>
+                    <h2 class="text-2xl font-bold mt-2 mb-2 border-l-4 border-blue-500 pl-3">一、下载完成后去哪里找</h2>
+                    <p class="text-sm text-sub">字号: 1.5rem (24px), 字重: Bold (粗体), 带左侧蓝色强调线</p>
+                </div>
+
+                <div>
+                    <span class="text-xs font-mono text-sub bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">H3 / 小节标题</span>
+                    <h3 class="text-xl font-semibold text-blue-700 dark:text-blue-400 mt-2 mb-2">Windows 端</h3>
+                    <p class="text-sm text-sub">字号: 1.25rem (20px), 字重: Semibold (半粗), 蓝色文字</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. 正文与段落 -->
+        <section class="mb-12 border-t pt-10 border-gray-200 dark:border-gray-700">
+            <h2 class="text-2xl md:text-3xl font-bold text-primary mb-6">2. 正文阅读体验 (Body Text)</h2>
+            
+            <div class="space-y-8">
+                <div>
+                    <span class="text-xs font-mono text-sub bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">正文段落 / max-w-[75ch]</span>
+                    <p class="text-lg leading-relaxed mt-4 mb-2 max-w-[75ch]">
+                        浏览器下载是最常见的方式。使用 Chrome、Edge 或其他基于 Chromium 的浏览器时，可以按 <code class="bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-1.5 py-0.5 rounded text-sm font-mono border border-blue-100 dark:border-blue-800">Ctrl+J</code> 打开下载内容页面。这里会列出最近下载的文件，右侧通常有“在文件夹中显示”或类似选项，点击后可以直接定位到文件所在目录。
+                    </p>
+                    <p class="text-sm text-sub">字号: 1.125rem (18px), 行高: leading-relaxed (1.625), 最大宽度: 75ch</p>
+                </div>
+
+                <div>
+                    <span class="text-xs font-mono text-sub bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">次要说明 / 灰色小字</span>
+                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-4 mb-2 max-w-[75ch]">
+                        * 注意：这个路径在不同 QQ 版本、不同安卓版本上可能变化。
+                    </p>
+                    <p class="text-sm text-sub">字号: 0.875rem (14px), 颜色: 灰色</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. 特殊代码块 -->
+        <section class="border-t pt-10 border-gray-200 dark:border-gray-700">
+            <h2 class="text-2xl md:text-3xl font-bold text-primary mb-6">3. 代码与路径块 (Code Blocks)</h2>
+            
+            <div class="space-y-4 max-w-[75ch]">
+                <span class="text-xs font-mono text-sub bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">带复制按钮的路径代码块</span>
+                <div class="relative">
+                    <code class="block bg-blue-50 dark:bg-slate-800 text-blue-800 dark:text-blue-200 p-4 pr-20 rounded-lg text-sm font-mono overflow-x-auto shadow-sm border border-blue-100 dark:border-slate-700">C:\Users\你的用户名\Downloads</code>
+                    <button class="absolute top-3 right-3 bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-300 border border-blue-200 dark:border-slate-600 px-3 py-1 rounded text-xs font-semibold hover:bg-gray-50 dark:hover:bg-slate-600 transition shadow-sm">复制</button>
+                </div>
+                <p class="text-sm text-sub">等宽字体 (Monospace), 浅蓝底色, 带有右侧复制按钮</p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // 1. 初始化深色模式
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        }
+
+        // 2. 动态更新按钮文字
+        function updateButtonText() {
+            if (html.classList.contains('dark')) {
+                toggleBtn.innerText = '浅色模式';
+            } else {
+                toggleBtn.innerText = '深色模式';
+            }
+        }
+
+        // 页面加载时先执行一次
+        updateButtonText();
+
+        // 3. 点击切换事件
+        toggleBtn.addEventListener('click', () => {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+            // 切换后更新文字
+            updateButtonText();
+        });
+    </script>
+</body>
+</html>

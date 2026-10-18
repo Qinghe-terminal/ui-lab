@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>配色与深色模式 - UI Lab</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- 配置 Tailwind 支持 class 模式的深色 -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+
+    <style>
+        body { font-family: "SimSun", "宋体", "Songti SC", serif; }
+        html { font-size: clamp(16px, 1.5vw, 22px); }
+
+        /* 定义白天模式的 CSS 变量 */
+        :root {
+            --bg-page: #f4f6f8;
+            --bg-card: #ffffff;
+            --text-main: #1f2937;
+            --text-sub: #6b7280;
+            --color-primary: #405de6;
+            --color-danger: #fd1d1d;
+            --color-warning: #eab308; 
+            --color-success: #22c55e; 
+        }
+
+        /* 定义深色模式的 CSS 变量 */
+        html.dark {
+            --bg-page: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f1f5f9;
+            --text-sub: #94a3b8;
+            --color-primary: #5851db;
+            --color-danger: #ef4444;
+            --color-warning: #facc15;
+            --color-success: #4ade80;
+        }
+
+        /* 将变量应用到全局 */
+        body {
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .custom-card {
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .text-sub { color: var(--text-sub); }
+        .text-primary { color: var(--color-primary); }
+        .bg-primary { background-color: var(--color-primary); }
+    </style>
+</head>
+<body class="p-8">
+
+    <!-- 全局导航栏 -->
+    <nav class="custom-card shadow-sm sticky top-0 z-50 mb-8 -mx-8 -mt-8 border-b border-gray-200 dark:border-gray-700">
+        <div class="max-w-3xl mx-auto px-4 h-16 flex items-center justify-between">
+            <span class="font-bold text-primary">UI Lab 实验室</span>
+            <div class="space-x-4 flex items-center">
+                <a href="index.html" class="text-sub hover:text-primary transition">目录</a>
+                <a href="color.html" class="text-primary font-bold border-b-2 border-current pb-1">配色规范</a>
+                <a href="typography.html" class="text-sub hover:text-primary transition">字体规范</a>
+                <a href="whitepaper.html" class="text-sub hover:text-primary transition">功能白皮书</a>
+                
+                <!-- 深色模式切换按钮 -->
+                <button id="theme-toggle" class="ml-4 px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded text-sm hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+                    切换模式
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-3xl mx-auto custom-card p-8 rounded-xl shadow-lg mb-10">
+        <h1 class="text-3xl font-bold mb-6 border-b border-gray-200 dark:border-gray-700 pb-4">颜色定义与层级规范</h1>
+        
+        <h2 class="text-xl font-bold mb-4 text-primary">1. 核心功能色板</h2>
+        <p class="text-sub mb-6">提取最具科技感的颜色，去除燥热色。包含主色、辅助色以及状态色。</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+            <!-- 蓝 -->
+            <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow-sm bg-white dark:bg-gray-800">
+                <div class="h-20" style="background-color: #405de6;"></div>
+                <div class="p-3">
+                    <div class="font-bold">主色 / 蓝</div>
+                    <div class="text-sub text-sm font-mono">#405de6</div>
+                </div>
+            </div>
+            <!-- 紫 -->
+            <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow-sm bg-white dark:bg-gray-800">
+                <div class="h-20" style="background-color: #5851db;"></div>
+                <div class="p-3">
+                    <div class="font-bold">强调 / 紫</div>
+                    <div class="text-sub text-sm font-mono">#5851db</div>
+                </div>
+            </div>
+            <!-- 红 -->
+            <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow-sm bg-white dark:bg-gray-800">
+                <div class="h-20" style="background-color: #fd1d1d;"></div>
+                <div class="p-3">
+                    <div class="font-bold">警告 / 红</div>
+                    <div class="text-sub text-sm font-mono">#fd1d1d</div>
+                </div>
+            </div>
+            <!-- 黄 -->
+            <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow-sm bg-white dark:bg-gray-800">
+                <div class="h-20" style="background-color: #eab308;"></div>
+                <div class="p-3">
+                    <div class="font-bold">警示 / 黄</div>
+                    <div class="text-sub text-sm font-mono">#eab308</div>
+                </div>
+            </div>
+            <!-- 绿 -->
+            <div class="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden shadow-sm bg-white dark:bg-gray-800">
+                <div class="h-20" style="background-color: #22c55e;"></div>
+                <div class="p-3">
+                    <div class="font-bold">提示 / 绿</div>
+                    <div class="text-sub text-sm font-mono">#22c55e</div>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="text-xl font-bold mb-4 text-primary">2. 背景与文字层级</h2>
+        <p class="text-sub mb-6">深色模式会自动反转这些颜色，实现无缝切换。</p>
+
+        <div class="space-y-4">
+            <!-- 页面背景 -->
+            <div class="flex items-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg" style="background-color: var(--bg-page);">
+                <div class="w-12 h-12 rounded border border-gray-300 dark:border-gray-600 mr-4"></div>
+                <div>
+                    <div class="font-bold">页面大背景 (Page Background)</div>
+                    <div class="text-sub text-sm">白天: #f4f6f8 / 深色: #0f172a</div>
+                </div>
+            </div>
+            <!-- 卡片背景 -->
+            <div class="flex items-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg custom-card">
+                <div class="w-12 h-12 rounded border border-gray-300 dark:border-gray-600 mr-4" style="background-color: var(--bg-card);"></div>
+                <div>
+                    <div class="font-bold">内容卡片 (Card Background)</div>
+                    <div class="text-sub text-sm">白天: #ffffff / 深色: #1e293b</div>
+                </div>
+            </div>
+            <!-- 主文字 -->
+            <div class="flex items-center p-4 border border-gray-200 dark:border-gray-700 rounded-lg custom-card">
+                <span class="text-3xl mr-4 font-bold" style="color: var(--text-main);">Ag</span>
+                <div>
+                    <div class="font-bold">主文字色 (Main Text)</div>
+                    <div class="text-sub text-sm">白天: 深灰 / 深色: 灰白</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 切换深色模式的逻辑（全局通用） -->
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        // 检查本地存储中是否有用户的偏好
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+    </script>
+</body>
+</html>

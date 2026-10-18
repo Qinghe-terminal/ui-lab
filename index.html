@@ -5,72 +5,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UI Lab - 设计实验室</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        /* 测试字体 */
-        body {
-            font-family: "SimSun", "宋体", "Songti SC", serif;
+    
+    <!-- 配置 Tailwind 支持 class 模式的深色 -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
         }
-        
-        /* 测试字体缩放：最小16px，根据屏幕宽度1.5%放大，最大22px */
-        html {
-            font-size: clamp(16px, 1.5vw, 22px);
+    </script>
+
+    <style>
+        body { font-family: "SimSun", "宋体", "Songti SC", serif; }
+        html { font-size: clamp(16px, 1.5vw, 22px); }
+
+        /* 全局变量定义（与 color.html 保持一致） */
+        :root {
+            --bg-page: #f4f6f8;
+            --bg-card: #ffffff;
+            --text-main: #1f2937;
+            --text-sub: #6b7280;
+            --color-primary: #405de6;
         }
 
-        /* 测试防复制 */
-        .no-copy {
-            user-select: none;
-            -webkit-user-select: none;
+        html.dark {
+            --bg-page: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f1f5f9;
+            --text-sub: #94a3b8;
+            --color-primary: #5851db;
         }
+
+        body {
+            background-color: var(--bg-page);
+            color: var(--text-main);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .custom-card {
+            background-color: var(--bg-card);
+            color: var(--text-main);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .text-sub { color: var(--text-sub); }
+        .text-primary { color: var(--color-primary); }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 p-8">
-    
-    <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-lg">
-        <h1 class="text-3xl font-bold text-blue-600 mb-6">UI 实验室</h1>
-        
-        <h2 class="text-xl font-bold text-gray-700 mb-4 border-l-4 border-blue-500 pl-3">1. 字体缩放与行宽测试</h2>
-        <p class="leading-relaxed max-w-[75ch] mb-4">
-            这段文字用来测试你的屏幕上的阅读体验。你可以尝试调整浏览器窗口的大小，字体大小会自动缩放。同时，这段文字的最大宽度被限制在了 75 个字符左右，以保证阅读时视线不会太长。
-        </p>
+<body class="p-8">
 
-        <h2 class="text-xl font-bold text-gray-700 mb-4 mt-8 border-l-4 border-blue-500 pl-3">2. 防复制测试</h2>
-        <p class="no-copy mb-4 bg-gray-100 p-4 rounded border border-gray-200">
-            尝试用鼠标选中这段文字，将无法选中。
-        </p>
-
-        <h2 class="text-xl font-bold text-gray-700 mb-4 mt-8 border-l-4 border-blue-500 pl-3">3. 代码块与复制按钮测试</h2>
-        
-        <!-- 路径代码块与按钮 -->
-        <div class="relative mb-8">
-            <code id="path-code-1" class="block bg-blue-50 text-blue-800 p-4 rounded-lg pr-20 text-sm overflow-x-auto shadow-sm border border-blue-100">C:\Users\你的用户名\Downloads</code>
-            <button onclick="copyCode('path-code-1', this)" class="absolute top-2 right-2 bg-white text-blue-600 border border-blue-200 px-3 py-1 rounded text-xs font-semibold hover:bg-blue-50 transition shadow-sm">
-                复制
-            </button>
-        </div>
-
-        <!-- 这里是实现复制功能的 JavaScript 代码 -->
-        <script>
-            function copyCode(elementId, btnElement) {
-                // 1. 找到对应的代码框内容
-                const textToCopy = document.getElementById(elementId).innerText;
+    <!-- 全局导航栏 -->
+    <nav class="custom-card shadow-sm sticky top-0 z-50 mb-8 -mx-8 -mt-8 border-b border-gray-200 dark:border-gray-700">
+        <div class="max-w-3xl mx-auto px-4 h-16 flex items-center justify-between">
+            <span class="font-bold text-primary">UI Lab 实验室</span>
+            <div class="space-x-4 flex items-center">
+                <a href="index.html" class="text-primary font-bold border-b-2 border-current pb-1">目录</a>
+                <a href="color.html" class="text-sub hover:text-primary transition">配色规范</a>
+                <a href="typography.html" class="text-sub hover:text-primary transition">字体规范</a>
+                <a href="whitepaper.html" class="text-sub hover:text-primary transition">功能白皮书</a>
                 
-                // 2. 使用浏览器接口把内容写入剪贴板
-                navigator.clipboard.writeText(textToCopy).then(() => {
-                    // 3. 复制成功后，改变按钮的样式和文字，给用户反馈
-                    const originalText = btnElement.innerText;
-                    btnElement.innerText = '已复制！';
-                    btnElement.classList.add('bg-green-50', 'text-green-600', 'border-green-200');
-                    btnElement.classList.remove('text-blue-600', 'border-blue-200');
-                    
-                    // 4. 2秒后恢复按钮原来的样子
-                    setTimeout(() => {
-                        btnElement.innerText = originalText;
-                        btnElement.classList.remove('bg-green-50', 'text-green-600', 'border-green-200');
-                        btnElement.classList.add('text-blue-600', 'border-blue-200');
-                    }, 2000);
-                }).catch(err => {
-                    console.error('复制失败:', err);
-                    alert('复制失败，请手动选择复制。');
-                });
+                <!-- 深色模式切换按钮 -->
+                <button id="theme-toggle" class="ml-4 px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded text-sm hover:bg-gray-300 dark:hover:bg-gray-600 transition">
+                    切换模式
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主体内容 -->
+    <div class="max-w-3xl mx-auto custom-card p-8 rounded-xl shadow-lg mb-10">
+        <h1 class="text-3xl font-bold text-primary mb-2">UI 实验室目录</h1>
+        <p class="text-sub mb-8">用于测试和制定设计规范与功能逻辑。</p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- 卡片：配色 -->
+            <a href="color.html" class="block p-6 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition bg-white dark:bg-gray-800">
+                <h2 class="text-xl font-bold mb-2">1. 颜色定义规范</h2>
+                <p class="text-sub text-sm">确定网站的主题色、背景色、文字色、状态色（警告/成功/危险），以及深色模式变量</p>
+            </a>
+            <!-- 卡片：字体 -->
+            <a href="typography.html" class="block p-6 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition bg-white dark:bg-gray-800">
+                <h2 class="text-xl font-bold mb-2">2. 字体层级规范</h2>
+                <p class="text-sub text-sm">定义各级标题、正文、代码块的字号和字重（粗细）</p>
+            </a>
+            <!-- 卡片：白皮书 -->
+            <a href="whitepaper.html" class="block p-6 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition bg-white dark:bg-gray-800">
+                <h2 class="text-xl font-bold mb-2">3. 功能白皮书</h2>
+                <p class="text-sub text-sm">定义防复制策略、路径复制按钮、全局搜索逻辑等底层机制</p>
+            </a>
+            <!-- 卡片：搜索测试 -->
+            <a href="search.html" class="block p-6 border border-gray-200 dark:border-gray-700 rounded-xl shadow-sm hover:shadow-md transition bg-white dark:bg-gray-800">
+                <h2 class="text-xl font-bold mb-2">4. 搜索功能测试</h2>
+                <p class="text-sub text-sm">测试前端模糊搜索、多层级结果与高亮显示的可行性</p>
+            </a>
+        </div>
+    </div>
+
+    <!-- 切换深色模式的逻辑 -->
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+
+        if (localStorage.getItem('theme') === 'dark' || 
+            (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        }
+
+        toggleBtn.addEventListener('click', () => {
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
             }
-        </script>
+        });
+    </script>
+</body>
+</html>
